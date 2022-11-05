@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Board {
 
     /*
@@ -50,5 +52,24 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public String getChar(int tile){
+        if(board[tile] == -1){
+            return "o";
+        }
+        if(board[tile] == 1){
+            return "x";
+        }
+        return " ";
+    }
+
+    @Override
+    public String toString() {
+        return  " --- \n" +
+                "|"+getChar(0)+getChar(1)+getChar(2)+"|\n" +
+                "|"+getChar(3)+getChar(4)+getChar(5)+"|\n" +
+                "|"+getChar(6)+getChar(7)+getChar(8)+"|\n" +
+                " --- \n";
     }
 }
