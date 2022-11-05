@@ -18,6 +18,7 @@ public class HumanGame {
         int tile;
 
         while(!board.checkWin(1) || !board.checkWin(-1)){
+            System.out.println(board);
             System.out.println("to exit type -1,else type which tile to move\nnow " + p + " is moving");
             tile = sc.nextInt();
             if(tile <= -1) {
@@ -26,6 +27,7 @@ public class HumanGame {
             if(tile <= 8 && board.isEmpty(tile)){
                 board.place(tile,player);
                 if(board.checkWin(player)){
+                    System.out.println(board);
                     System.out.println("congrats, you won");
                     return player;
                 }

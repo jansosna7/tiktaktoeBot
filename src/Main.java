@@ -8,6 +8,7 @@ public class Main {
         if(b1.checkWin(1)){
             System.out.println("1 won");
         }
-
+        HumanGame humanGame = new HumanGame();
+        humanGame.play();
     }
 }

@@ -31,6 +31,10 @@ public class Board {
         board[tile] = player;
     }
 
+    public int getTile(int tile){
+        return board[tile];
+    }
+
     public boolean checkWin(int player){
         for(int i = 0; i<3; i++){
             //rows
