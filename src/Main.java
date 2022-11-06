@@ -10,5 +10,7 @@ public class Main {
         }
         HumanGame humanGame = new HumanGame();
         humanGame.play();
+
+        Bot bot1 = new Bot(90, null,9);
     }
 }
