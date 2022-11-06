@@ -37,7 +37,7 @@ public class Bot {
         return 1/(1+exp(-sum));
     }
 
-    public double[] calculate(){
+    public void calculate(){
         int neuron = 0;
         int weight = 0;
         double sum;
@@ -70,18 +70,55 @@ public class Bot {
             prevLayerStart += layers.get(layer);
             prevLayerEnd += layers.get(layer);
         }
-        double[] result = new double[9];
-        for (int i = 0; i < 9; i++) {
-            result[i] = values[numberOfNeurons-(9-i)];
-        }
-        return result;
+
     }
 
     public int giveNextMove(Board board, int player){
+
+        int countEmpty = 0;
+        for (int i = 0; i < 9; i++) {
+            if(board.isEmpty(i)){
+                countEmpty++;
+            }
+        }
+        if (countEmpty == 0){
+            return -1; //no empty tiles - draw
+        }
+
         this.board = board;
         if(player == -1) {
             this.board.flip();
         }
+        calculate();
+        double[] result = new double[9];
+        for (int i = 0; i < 9; i++) {
+            result[i] = values[numberOfNeurons-(9-i)];
+        }
+        double maxV;
+        int maxId;
+        for (int i = 0; i < 9; i++) {
+            maxV = -2;
+            maxId = -1;
+            for (int j = 0; j < 9; j++) {
+                if(result[j] > maxV){
+                    maxV = result[i];
+                    maxId = j;
+                }
+            }
+            if(maxId != -1){
+                if(this.board.isEmpty(maxId)){
+                    return maxId;
+                }
+                else
+                {
+                    result[maxId] = -2;
+                }
+            }
+            else{ //all results are -2
+                return -2; //cant decide
+            }
+        }
+        return -3; //didnt do enything
     }
 
 }
