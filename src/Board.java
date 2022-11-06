@@ -68,6 +68,12 @@ public class Board {
         return " ";
     }
 
+    public void flip(){
+        for (int i = 0; i < 9; i++) {
+            board[i] = board[i]*-1;
+        }
+    }
+
     @Override
     public String toString() {
         return  " --- \n" +

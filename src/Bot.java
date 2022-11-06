@@ -11,6 +11,7 @@ public class Bot {
     private List<Integer> layers;
     private int numberOfNeurons = 0;
     private double[] values;
+    private Board board;
 
     public Bot(int n, List<Integer> layers, int numberOfNeurons){
         this.n = n;
@@ -36,7 +37,7 @@ public class Bot {
         return 1/(1+exp(-sum));
     }
 
-    public double[] calculate(Board board){
+    public double[] calculate(){
         int neuron = 0;
         int weight = 0;
         double sum;
@@ -76,5 +77,11 @@ public class Bot {
         return result;
     }
 
+    public int giveNextMove(Board board, int player){
+        this.board = board;
+        if(player == -1) {
+            this.board.flip();
+        }
+    }
 
 }
