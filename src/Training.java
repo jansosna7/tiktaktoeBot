@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +27,12 @@ public class Training {
         int player = 1;
         int move;
         for (int i = 0; i < 9; i++) {
-            move = bots[a].giveNextMove(board,player);
+            if(player == 1) {
+                move = bots[a].giveNextMove(board, player);
+            }
+            else{
+                move = bots[b].giveNextMove(board, player);
+            }
             if(move == -1){ //draw
                 bots[a].score ++;
                 bots[b].score ++;
@@ -54,7 +60,7 @@ public class Training {
         double [] wa = a.getWeights();
         double [] wb = b.getWeights();
         double [] result = new double[wa.length];
-        int bound = 100;
+        int bound = 10;
         for (int i = 0; i < wa.length; i++) {
             result[i] = (wa[i] + wb[i]) / 2 + (rand.nextInt(2*bound)-bound)*diff;
         }
@@ -63,7 +69,7 @@ public class Training {
 
     private void avgBestAll(){
         for (int i = 0; i < population; i++) {
-            bots[i] = new Bot(n,merge(best,bots[i],0.0001),layers,numberOfNeurons);
+            bots[i] = new Bot(n,merge(best,bots[i],0.001),layers,numberOfNeurons);
         }
         bots[bestId] = best;
         bots[worstId] = new Bot(n,layers,numberOfNeurons);
@@ -74,6 +80,8 @@ public class Training {
         this.population = population;
         bots = new Bot[population];
         List<Integer> layers = new ArrayList<Integer>(); //generate more sofiticated layers
+        layers.add(9);
+
         for (int l = 0; l < maxLayer; l++) {
             //create bots
             for (int b = 0; b < population; b++) {
@@ -125,8 +133,37 @@ public class Training {
         }
     }
 
-    public void getBest(){
+    public Bot getBest(){
         System.out.println(best.games + " " + best.wins + " " + best.winRate + " " + best.score);
+        try {
+            FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+            // Write objects to file
+            o.writeObject(best);
+
+            o.close();
+            f.close();
+
+            FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Read objects
+            Bot bestRead = (Bot) oi.readObject();
+
+
+            oi.close();
+            fi.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return best;
     }
 
 }
