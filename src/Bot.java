@@ -12,6 +12,10 @@ public class Bot {
     private int numberOfNeurons = 0;
     private double[] values;
     private Board board;
+    public int wins = 0; //games won
+    public int games = 0; //games played
+    public double winRate = 0; //wins/games
+    public int score = 0; //based on training
 
     public Bot(int n, List<Integer> layers, int numberOfNeurons){
         this.n = n;
@@ -25,7 +29,7 @@ public class Bot {
         this.numberOfNeurons = numberOfNeurons;
         this.values = new double[numberOfNeurons];
     }
-    public Bot(int n, double[] weights, List<Integer> layers){
+    public Bot(int n, double[] weights, List<Integer> layers, int numberOfNeurons){
         this.n = n;
         this.weights = weights;
         this.layers = layers;

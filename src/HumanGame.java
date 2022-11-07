@@ -42,6 +42,8 @@ public class HumanGame {
             else{
                 System.out.println("tile taken, try again");
             }
+            //draw??
+            // TODO: 07.11.2022
         }
         return 0;
     }
