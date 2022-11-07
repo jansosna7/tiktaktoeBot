@@ -23,6 +23,15 @@ public class Board {
         }
     }
 
+    public boolean draw(){
+        for (int i = 0; i < 9; i++) {
+            if(board[i] == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean isEmpty(int tile){
         return (board[tile] == 0);
     }

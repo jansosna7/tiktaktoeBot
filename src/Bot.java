@@ -37,6 +37,10 @@ public class Bot {
         this.values = new double[numberOfNeurons];
     }
 
+    public double[] getWeights() {
+        return weights;
+    }
+
     private double function(double sum){
         return 1/(1+exp(-sum));
     }
